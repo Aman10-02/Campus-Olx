@@ -24,7 +24,8 @@ router.get("/login/failed", (req, res) => {
 });
 router.get("/logout", (req, res) => {
     req.logout();
-    res.redirect("https://campusolx.onrender.com/");
+    // res.redirect("https://campusolx.onrender.com/");
+    res.redirect("/");
   });
 
 
@@ -35,24 +36,25 @@ router.get('/google', passport.authenticate('google', {
 }));
 
 router.get('/google/callback', passport.authenticate('google', {
-    successRedirect: "https://campusolx.onrender.com/",
+    // successRedirect: "https://campusolx.onrender.com/",
+    successRedirect: "/",
     failureRedirect: "/login/failed",
 }));
 
 
 
 
-router.get('/outlook', passport.authenticate('microsoft', {
-    // http://graph.microsoft.com/v1.0/me/photo/$value,
-    // scope: ['http://graph.microsoft.com/v1.0/me/photo/$value'],
-    // scope: ['User.ReadBasic.All'],
-    GET:" /me/photo/$value",
-    prompt: 'select_account',
-}));
+// router.get('/outlook', passport.authenticate('microsoft', {
+//     // http://graph.microsoft.com/v1.0/me/photo/$value,
+//     // scope: ['http://graph.microsoft.com/v1.0/me/photo/$value'],
+//     // scope: ['User.ReadBasic.All'],
+//     GET:" /me/photo/$value",
+//     prompt: 'select_account',
+// }));
 
-router.get('/outlook/callback', passport.authenticate('microsoft', {
-    successRedirect: "https://campusolx.onrender.com/",
-    failureRedirect: "/login/failed",
-}));
+// router.get('/outlook/callback', passport.authenticate('microsoft', {
+//     successRedirect: "https://campusolx.onrender.com/",
+//     failureRedirect: "/login/failed",
+// }));
 
 module.exports = router;
