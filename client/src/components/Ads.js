@@ -98,7 +98,7 @@ function Ads(props) {
                     <div></div>
                     <Text>
                         <span>₹ {props.adDetail.price}</span>
-                        <p>{props.adDetail.title}</p>
+                        <p>{props.adDetail.category}</p>
                     </Text>
                 </Detail>
             </Link>

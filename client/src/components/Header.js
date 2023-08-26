@@ -113,7 +113,7 @@ function Header() {
                                         close()
                                     }
                                     }>
-                                        <input type="text" placeholder='Search your needs' value={input || ""} onChange={handleChange} />
+                                        <input type="text" placeholder='Search your categories' value={input || ""} onChange={handleChange} />
                                         <button type='submit'>
                                             <i className="fa-solid fa-magnifying-glass fa-xl" style={{ color: 'white' }} />
                                         </button>
