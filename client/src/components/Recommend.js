@@ -44,7 +44,7 @@ function Recommend() {
     return (
         <div className='bodyContainer'>
             <span className='bodySpan'>Recommend</span>
-            {//console.log("inside return",ads)}
+            {/* {console.log("inside return",ads)} */}
             {
                 ads &&
                 <Gridcontainer adsToPublish={ads} />
