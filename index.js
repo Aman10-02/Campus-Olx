@@ -45,9 +45,9 @@ app.use(
 // )
 mongoose
   .connect(process.env.MONGODBCONNECT)
-  .then(() => //console.log("DB Connection Successfull!"))
+  .then(() => console.log("DB Connection Successfull!"))
   .catch((err) => {
-    //console.log(err);
+    console.log(err);
   });
 app.use("/auth", authRoutes);
 app.use("/update", addsUpdateRoutes);
