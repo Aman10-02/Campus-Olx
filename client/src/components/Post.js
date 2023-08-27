@@ -148,7 +148,7 @@ function Post() {
                             <label>
                                 <input type="file" id='file' onChange={(e) => setFile(e.target.files[0])} required />
                             </label>
-                            <label>
+                            {/* <label>
                                 <input type="file" />
                             </label>
                             <label>
@@ -156,7 +156,7 @@ function Post() {
                             </label>
                             <label>
                                 <input type="file" />
-                            </label>
+                            </label> */}
                         </div>
                     </Photos>
                     <Submit>
