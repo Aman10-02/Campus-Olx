@@ -7,7 +7,7 @@ const User = require("../models/User.model")
 
 router.post('/post', (req, res) => {
     if (req.user) {
-        console.log("post success")
+        //console.log("post success")
         new Add({
             createdbygoogleId: req.user.googleId,
             category: req.body.category,
@@ -16,7 +16,7 @@ router.post('/post', (req, res) => {
             image: req.body.image,
             description: req.body.description,
         }).save().then((newAdd) => {
-            console.log("created new add: ",newAdd);
+            //console.log("created new add: ",newAdd);
         });
         res.status(200).json({
             success: true,
@@ -25,15 +25,15 @@ router.post('/post', (req, res) => {
         });
     }
     else {
-        console.log("wrong")
+        //console.log("wrong")
     }
 
 });
 router.post('/favourite',   async (req, res) => {
     if (req.user && req.body) {
-        console.log("post favourite success")
-        console.log("post body",req.body)
-        console.log("post user", req.user.id)
+        //console.log("post favourite success")
+        //console.log("post body",req.body)
+        //console.log("post user", req.user.id)
         const currentUser = await User.findOne({googleId : req.user.googleId});
         const isfav = await currentUser.favourite.includes(req.body);
         if(isfav){
@@ -44,15 +44,15 @@ router.post('/favourite',   async (req, res) => {
         
         
         const currentAdd = await Add.findOne({_id : req.body});
-        console.log("current add",currentAdd)
+        //console.log("current add",currentAdd)
         const isfavadd = await currentAdd.favourite.includes(req.user.googleId);
         if(isfavadd){
             await Add.updateOne({_id : currentAdd._id}, {$pull:{"favourite":req.user.googleId}})
-            console.log("inside if")
+            //console.log("inside if")
             
         }else {
             await Add.updateOne({_id : currentAdd._id}, {$push:{"favourite":req.user.googleId}})
-            console.log("inside else")
+            //console.log("inside else")
         }
 
         res.status(200).json({
@@ -63,16 +63,16 @@ router.post('/favourite',   async (req, res) => {
         });
     }
     else {
-        console.log("wrong")
+        //console.log("wrong")
     }      
 });
 
 router.get('/get/recommend', async (req, res) => {
     if(req.user) {
 
-        console.log("request for get ads", req.user.googleId)
+        //console.log("request for get ads", req.user.googleId)
         const adds = await Add.find({createdbygoogleId : {$not: {$regex:  req.user.googleId} }, sold: false} ).sort({createdAt: -1 }).limit(5);
-        console.log("ads found:", adds)
+        //console.log("ads found:", adds)
         res.status(200).json({
             success: true,
             message: "successfull",
@@ -81,7 +81,7 @@ router.get('/get/recommend', async (req, res) => {
         })
     }else {
         const adds = await Add.find({sold: false} ).sort({createdAt: -1 }).limit(5);
-        console.log("ads found:", adds)
+        //console.log("ads found:", adds)
         res.status(200).json({
             success: true,
             message: "successfull",
@@ -96,10 +96,10 @@ router.get('/get/recommend', async (req, res) => {
 router.post('/conv', async (req, res) => {
     const body = JSON.parse(req.body);
     if(body){
-        console.log("request for get conv", body)
+        //console.log("request for get conv", body)
         const add = await Add.findOne({_id : body.addId});
     const user = await User.findOne({googleId : body.user_id})
-    console.log("details for conv :", add, user)
+    //console.log("details for conv :", add, user)
     res.status(200).json({
         Add : add,
         User : user,
@@ -111,10 +111,10 @@ router.post('/conv/detail', async (req, res) => {
     const body = JSON.parse(req.body);
     if(body){
 
-        console.log("request for get conv", body)
+        //console.log("request for get conv", body)
         const add = await Add.findOne({_id : body.addId});
         const user = await User.findOne({googleId : body.user_id})
-        console.log("details for conv :", add, user)
+        //console.log("details for conv :", add, user)
         res.status(200).json({
             Add : add,
             User : user,
@@ -126,7 +126,7 @@ router.post('/conv/detail', async (req, res) => {
 
 router.post('/post/offer', async (req, res) => {
     const body = req.body;
-        // console.log("request for get /post/offer", body);
+        // //console.log("request for get /post/offer", body);
         await User.updateOne({googleId : req.body.userId}, {$pull:{"interestedAdd": {addId: req.body.addId}}})
         await User.updateOne({googleId : req.body.userId}, {$push:{"interestedAdd":req.body.interestedAdd}})
         
@@ -139,15 +139,15 @@ router.post('/post/offer', async (req, res) => {
             message: "successfull"
         })
         // const currentAdd = await Add.findOne({_id : req.body});
-        // console.log("current add",currentAdd)
+        // //console.log("current add",currentAdd)
         // const isfavadd = await currentAdd.favourite.includes(req.user.googleId);
         // if(isfavadd){
             //     await Add.updateOne({_id : currentAdd._id}, {$pull:{"favourite":req.user.googleId}})
-            //     console.log("inside if")
+            //     //console.log("inside if")
             
             // }else {
                 //     await Add.updateOne({_id : currentAdd._id}, {$push:{"favourite":req.user.googleId}})
-                //     console.log("inside else")
+                //     //console.log("inside else")
                 // }
                 
                 // res.status(200).json({
@@ -161,11 +161,11 @@ router.post('/post/offer', async (req, res) => {
         
         
         router.get('/myads', async (req, res) => {
-            console.log("request for get myads", req.user.googleId)
+            //console.log("request for get myads", req.user.googleId)
             const adds = await Add.find({createdbygoogleId : req.user.googleId, sold: false});
             const soldadds = await Add.find({createdbygoogleId : req.user.googleId, sold: true});
             const bought = await Add.find({soldTo: req.user.googleId});
-            console.log("ads myadds:", adds)
+            //console.log("ads myadds:", adds)
             res.status(200).json({
                 success: true,
                 message: "successfull",
@@ -178,12 +178,12 @@ router.post('/post/offer', async (req, res) => {
         });
         
         router.get('/myads/favourite', async (req, res) => {
-            console.log("request for get myads favourite", req.user.googleId)
+            //console.log("request for get myads favourite", req.user.googleId)
             const adds = await Add.find({favourite:{ $in : req.user.googleId }, sold: false});
             const soldadds = await Add.find({createdbygoogleId: req.user.googleId, favourite:{ $in : req.user.googleId }, sold: true});
             const bought = await Add.find({favourite:{ $in : req.user.googleId }, soldTo: req.user.googleId });
             
-        console.log("ads myadds:", adds)
+        //console.log("ads myadds:", adds)
         res.status(200).json({
             success: true,
             message: "successfull",
@@ -201,10 +201,10 @@ router.post('/post/offer', async (req, res) => {
     router.post('/seller', async (req,res) => {
         if(req.body){
             const searchId = JSON.parse(req.body).googleId;
-            console.log("/seller",JSON.parse(req.body).googleId);
+            //console.log("/seller",JSON.parse(req.body).googleId);
             const requiredAdds = await Add.find( {createdbygoogleId: searchId, sold: false} );
             const soldadds = await Add.find({createdbygoogleId: searchId, sold: true});
-            console.log("required ads", requiredAdds)
+            //console.log("required ads", requiredAdds)
             res.status(200).json({
                 success: true,
                 message: "successfull",
@@ -214,7 +214,7 @@ router.post('/post/offer', async (req, res) => {
             });
         }
         else{
-            console.log("failed")
+            //console.log("failed")
         }
     });
     
@@ -222,9 +222,9 @@ router.post('/post/offer', async (req, res) => {
     router.post('/search', async (req,res) => {
         if(req.body){
             const searchId = req.body;
-            console.log("/search",req.body);
+            //console.log("/search",req.body);
             const requiredAdds = await Add.find( { category : searchId, sold: false } );
-            console.log("required ads search", requiredAdds)
+            //console.log("required ads search", requiredAdds)
             
             requiredAdds.length !== 0 ?
             (res.status(200).json({
@@ -241,18 +241,18 @@ router.post('/post/offer', async (req, res) => {
                 }))
     }
     else{
-        console.log("failed")
+        //console.log("failed")
     }
 });
 
 
 
 router.post('/sold', async (req, res) => {
-    console.log("request for sold", JSON.parse(req.body))
+    //console.log("request for sold", JSON.parse(req.body))
     const body = JSON.parse(req.body);
     await Add.updateOne({_id : body.addId}, { sold: true, soldAt: body.soldAt, soldTo: body.soldTo})
     await User.updateOne({googleId: body.soldTo}, {$push:{"bought": {addId: body.addId, price: body.soldAt}}})
-    // console.log("ads myadds:", adds)
+    // //console.log("ads myadds:", adds)
     res.status(200).json({
         success: true,
         message: "successfull",
@@ -265,13 +265,13 @@ router.post('/sold', async (req, res) => {
 
 
 router.post('/delete', async (req, res) => {
-    console.log("request for delete", req.body)
+    //console.log("request for delete", req.body)
     // const body = JSON.parse(req.body);
     await Add.deleteOne({_id : req.body})
     await Conversation.deleteMany({addId : req.body})
     
     // await User.updateOne({googleId: body.soldTo}, {$push:{"bought": {addId: body.addId, price: body.soldAt}}})
-    // console.log("ads myadds:", adds)
+    // //console.log("ads myadds:", adds)
     res.status(200).json({
         success: true,
         message: "successfull",

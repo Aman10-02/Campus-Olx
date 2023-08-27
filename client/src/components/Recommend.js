@@ -7,12 +7,12 @@ import Gridcontainer from './Gridcontainer.js'
 function Recommend() {
     const admin = useSelector(selectUserAdmin);
     const [ads, setAds] = useState(null)
-    console.log("isadmin",admin)
+    //console.log("isadmin",admin)
 
     useEffect(() => {
-        console.log("effect used")
+        //console.log("effect used")
         const getAds = () => {
-            console.log("inside get ads func")
+            //console.log("inside get ads func")
             fetch("https://campus-olx.onrender.com/adds/get/recommend", {
                 method: "GET",
                 credentials: "include",
@@ -23,18 +23,18 @@ function Recommend() {
                 },
             })
                 .then((response) => {
-                    console.log("got ads response")
+                    //console.log("got ads response")
                     if (response.status === 200) return response.json();
                     throw new Error("authentication has been failed!");
                 }).catch((err) => {
-                    console.log(err);
+                    //console.log(err);
                 })
                 .then((resObject) => {
-                    console.log(resObject.ads)
+                    //console.log(resObject.ads)
                     setAds(resObject.ads);
                 })
                 .catch((err) => {
-                    console.log(err);
+                    //console.log(err);
                 });
         };
         getAds();
@@ -44,7 +44,7 @@ function Recommend() {
     return (
         <div className='bodyContainer'>
             <span className='bodySpan'>Recommend</span>
-            {console.log("inside return",ads)}
+            {//console.log("inside return",ads)}
             {
                 ads &&
                 <Gridcontainer adsToPublish={ads} />

@@ -33,15 +33,15 @@ function PriceCard(props) {
           body: JSON.stringify({title: title,price: price, id: props.adDetail._id }),
         });
       const data = await response.json();
-      console.log(data)
+      //console.log(data)
       navigate("/my-ads");
     }
     else{
       alert("Price and Title can't be empty")
     }
   }
-    // console.log("ads page",username)
-    // console.log("ads page fav", favourite)
+    // //console.log("ads page",username)
+    // //console.log("ads page fav", favourite)
     const setfav = async () => {
         const response = await fetch("https://campus-olx.onrender.com/adds/favourite", {
             method: "POST",
@@ -56,7 +56,7 @@ function PriceCard(props) {
             body: props.adDetail._id,
         })
         const data = await response.json();
-        console.log("from fav func",data.updatedUser)
+        //console.log("from fav func",data.updatedUser)
         dispatch(setUserLogin({
             googleId: data.updatedUser.googleId,
             name: data.updatedUser.username,
@@ -64,8 +64,8 @@ function PriceCard(props) {
             favourite: data.updatedUser.favourite,
         })) 
 
-        // // console.log("favourite after dispatch",favourite)
-        // console.log("Adspage:", JSON.stringify(props.adDetail));
+        // // //console.log("favourite after dispatch",favourite)
+        // //console.log("Adspage:", JSON.stringify(props.adDetail));
         // ? (setFav("solid")) : (setFav("regular")) 
         // )
         // window.location.reload();

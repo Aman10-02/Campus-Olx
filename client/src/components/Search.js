@@ -9,7 +9,7 @@ function Search() {
   const [isSearch, setIsSearch] = useState(true)
   const [searchedAds, setSearchedAds] = useState([]);
   const input = useLocation().state;
-  console.log(input + "whvje")
+  //console.log(input + "whvje")
   const search = (input) && (input.charAt(0).toUpperCase() + input.slice(1).toLowerCase());
 
   const [min, setMin] = useState(0);
@@ -23,9 +23,9 @@ function Search() {
     setminmax(values => ({ ...values, [name]: value }))
   }
   const handleSubmit = (e) => {
-    console.log("inside submit", e)
+    //console.log("inside submit", e)
     e.preventDefault();
-    console.log(minmax);
+    //console.log(minmax);
     minmax.min ? setMin(minmax.min) : setMin(0)
     minmax.max ? setMax(minmax.max) : setMax(Infinity)
     setbar(true)
@@ -46,7 +46,7 @@ function Search() {
         body: search,
       })
       const data = await response.json();
-      console.log("from getsearchedAdds", data);
+      //console.log("from getsearchedAdds", data);
       setIsSearch(data.success)
       setSearchedAds(data.searchedAdds);
     }
@@ -58,7 +58,7 @@ function Search() {
     setMax(Infinity);
     setbar(false);
   }
-  console.log(searchedAds)
+  //console.log(searchedAds)
 
   return (
     <div className="bodyContainer">

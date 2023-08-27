@@ -44,7 +44,7 @@ function Myads() {
             )
     
             const data = await response.json();
-            console.log("myads:", data.adsneeded)
+            //console.log("myads:", data.adsneeded)
             setAdsDetails(data.adsneeded);
             setSoldAdds(data.soldAdds);
             setBought(data.bought);

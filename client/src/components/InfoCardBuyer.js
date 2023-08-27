@@ -10,7 +10,7 @@ function InfoCardBuyer({buyer, add}) {
   const navigate = useNavigate();
   const userId = useSelector(selectUserGoogleId); 
   const [buyerDetail, setBuyerDetail] = useState(null);
-  console.log("info card buyer",add)
+  //console.log("info card buyer",add)
   useEffect(() => {
     const getBuyer = async () => {
       const response = await fetch("https://campus-olx.onrender.com/user/getdetail", {
@@ -26,7 +26,7 @@ function InfoCardBuyer({buyer, add}) {
         body: buyer?.userGoogleId,
       })
       const data = await response.json();
-      console.log("from useeffect getdetail", data)
+      //console.log("from useeffect getdetail", data)
       setBuyerDetail(data.user);
     };
     getBuyer();
@@ -46,7 +46,7 @@ function InfoCardBuyer({buyer, add}) {
       body: JSON.stringify({senderId: userId, receiverId: buyerDetail.googleId, addId: add._id}),
     })
     const data = await response.json();
-    console.log("from useeffect create", data);
+    //console.log("from useeffect create", data);
     navigate("/message", {state: data});
 
     // setSeller(data.seller);
@@ -66,7 +66,7 @@ function InfoCardBuyer({buyer, add}) {
       body: JSON.stringify({soldTo: buyer.userGoogleId, soldAt: buyer.priceOffered, addId: add._id}),
     })
     const data = await response.json();
-    console.log("from sold", data);
+    //console.log("from sold", data);
     navigate("/my-ads");
 
     // setSeller(data.seller);

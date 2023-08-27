@@ -11,12 +11,12 @@ const User = require('../models/User.model')
 
 
 passport.serializeUser((user, done) => {
-    // console.log(user.id);
+    // //console.log(user.id);
     // done(null, user);
     done(null, user.googleId);
 });
 passport.deserializeUser((id, done) => {
-    console.log("id is",id)
+    //console.log("id is",id)
     User.findOne({googleId: id}).then((man) => {
         
         done(null,man );
@@ -28,7 +28,7 @@ passport.deserializeUser((id, done) => {
 
 
 // passport.deserializeUser((user, done) => {
-//     // console.log(user.id);
+//     // //console.log(user.id);
 //     done(null, user);
 // });
 
@@ -42,7 +42,7 @@ passport.use(
         User.findOne({googleId: profile.id}).then((currentUser) => {
             if(currentUser){
                 // already have this user
-                console.log('user is: ', currentUser);
+                //console.log('user is: ', currentUser);
                 done(null, currentUser);
             } else {
                 // if not, create user in our db
@@ -52,7 +52,7 @@ passport.use(
                     image: profile.photos[0].value,
                     isAdmin: profile.id === process.env.ADMIN_ID
                 }).save().then((newUser) => {
-                    console.log('created new user: ', newUser);
+                    //console.log('created new user: ', newUser);
                     done(null, newUser);
                 });
             }
@@ -70,10 +70,10 @@ passport.use(
 //     }, (accessToken, refreshToken, profile, done) => {
 //         // check if user already exists in our own db
 //         User.findOne({googleId: profile.id}).then((currentUser) => {
-//             console.log("user", currentUser)
+//             //console.log("user", currentUser)
 //             // if(currentUser){
 //             //     // already have this user
-//             //     console.log('user is: ', currentUser);
+//             //     //console.log('user is: ', currentUser);
 //             //     done(null, currentUser);
 //             // } else {
 //             //     // if not, create user in our db
@@ -82,7 +82,7 @@ passport.use(
 //             //         username: profile.displayName,
 //             //         image: profile.photos[0].value,
 //             //     }).save().then((newUser) => {
-//             //         console.log('created new user: ', newUser);
+//             //         //console.log('created new user: ', newUser);
 //             //         done(null, newUser);
 //             //     });
 //             // }
@@ -103,10 +103,10 @@ passport.use(
 //     }, (accessToken, refreshToken, profile, done) => {
 //         // check if user already exists in our own db
 //         User.findOne({googleId: profile.id}).then((currentUser) => {
-//             console.log("user profile", profile)
+//             //console.log("user profile", profile)
 //             if(currentUser){
 //                 // already have this user
-//                 console.log('user is: ', currentUser);
+//                 //console.log('user is: ', currentUser);
 //                 done(null, currentUser);
 //             } else {
 //                 // if not, create user in our db
@@ -115,7 +115,7 @@ passport.use(
 //                     username: profile.displayName,
 //                     // image: profile.photos[0].value,
 //                 }).save().then((newUser) => {
-//                     console.log('created new user: ', newUser);
+//                     //console.log('created new user: ', newUser);
 //                     done(null, newUser);
 //                 });
 //             }

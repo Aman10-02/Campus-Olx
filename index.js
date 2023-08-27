@@ -1,6 +1,6 @@
 let myuser
 require('dotenv').config();
-// console.log(process.env)
+// //console.log(process.env)
 const express = require("express");
 const authRoutes = require('./routes/auth');
 const addsRoutes = require('./routes/adds');
@@ -39,15 +39,15 @@ app.use(
 
 // mongoose.connect("mongodb://127.0.0.1:27017/olxClone",
 // () => {
-//     console.log("connected")
+//     //console.log("connected")
 // },
 // e => console.error(e)
 // )
 mongoose
   .connect(process.env.MONGODBCONNECT)
-  .then(() => console.log("DB Connection Successfull!"))
+  .then(() => //console.log("DB Connection Successfull!"))
   .catch((err) => {
-    console.log(err);
+    //console.log(err);
   });
 app.use("/auth", authRoutes);
 app.use("/update", addsUpdateRoutes);
@@ -71,5 +71,5 @@ app.get('*', (req, res) => {
 
 
 app.listen(process.env.PORT || 5000, () => {
-    console.log("server is running")
+    //console.log("server is running")
 })

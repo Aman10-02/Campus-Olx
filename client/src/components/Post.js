@@ -37,13 +37,13 @@ function Post() {
                 // Observe state change events such as progress, pause, and resume
                 // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
                 const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log('Upload is ' + progress + '% done');
+                //console.log('Upload is ' + progress + '% done');
                 switch (snapshot.state) {
                     case 'paused':
-                        console.log('Upload is paused');
+                        //console.log('Upload is paused');
                         break;
                     case 'running':
-                        console.log('Upload is running');
+                        //console.log('Upload is running');
                         break;
                     default:
                 }
@@ -55,10 +55,10 @@ function Post() {
                 // Handle successful uploads on complete
                 // For instance, get the download URL: http://firebasestorage.googleapis.com/...
                 const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-                    console.log('File available at', downloadURL);
+                    //console.log('File available at', downloadURL);
                     const item = { ...inputs, image: downloadURL }; 
                     alert(JSON.stringify(item))
-                    console.log("inputs are ", item)
+                    //console.log("inputs are ", item)
                     const response = await fetch("https://campus-olx.onrender.com/adds/post", {
                       method: "POST",
                       mode:"cors",
@@ -71,12 +71,12 @@ function Post() {
                       body:JSON.stringify(item),
                     });
                     const data = await response.json();
-                    console.log(data)
+                    //console.log(data)
                     navigate("/");
                 }  
         );
     };
-    console.log(file);
+    //console.log(file);
     useEffect(() => {
         setInputs({ category: selected })
     }, [selected]);

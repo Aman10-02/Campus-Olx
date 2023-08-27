@@ -26,10 +26,10 @@ function Message() {
     
     const friendUser = userId ? ((currentChat?.members[0] === userId) ? currentChat?.members[1] : currentChat?.members[0]) : null ;
     // const add = useLocation().state.Add;
-    // console.log(add);
+    // //console.log(add);
     // const seller = useLocation().state.Seller;
-    // console.log(seller);
-    // console.log("successful")
+    // //console.log(seller);
+    // //console.log("successful")
     useEffect(() => {
       const getConversation = async () => {
         const response = await fetch("https://campus-olx.onrender.com/conversation/get", {
@@ -44,7 +44,7 @@ function Message() {
         },
       })
       const data = await response.json();
-      console.log("from useeffect getconver", data);
+      //console.log("from useeffect getconver", data);
       setConversations(data);
       };
       getConversation();
@@ -65,7 +65,7 @@ function Message() {
         body: JSON.stringify({conversationId: currentChat?._id})
       })
       const data = await response.json();
-      console.log("from useeffect getMessages", data);
+      //console.log("from useeffect getMessages", data);
       setMessages(data);
       };
       getMessages();
@@ -87,7 +87,7 @@ function Message() {
                 
             })
             const data = await response.json();
-            console.log("from useeffect message getdetail", data);
+            //console.log("from useeffect message getdetail", data);
             setCurrentAdd(data.Add);
             setCurrentUser(data.User);
         };
@@ -100,7 +100,7 @@ function Message() {
     const sendmsg = async (event) => {
         event.preventDefault();
         // alert(JSON.stringify(msg))
-        console.log("inputs are ", msg);
+        //console.log("inputs are ", msg);
         if(msg)
         {const response = await fetch("https://campus-olx.onrender.com/adds/post/offer", {
           method: "POST",
@@ -114,7 +114,7 @@ function Message() {
           body:JSON.stringify( {addId: currentAdd._id, userId: userId, interestedBuyer: {userGoogleId: userId, priceOffered: msg}, interestedAdd: {addId: currentAdd._id, priceOffered: msg }}),
         });
         const data = await response.json();
-        console.log(data);
+        //console.log(data);
         alert("Your offer of ₹ "+ msg + " is made sucessfully")
         setMsg(null);
         }
@@ -132,7 +132,7 @@ function Message() {
     const sendQ = async (event) => {
         event.preventDefault();
         // alert(JSON.stringify(msg))
-        console.log("questions are ", que)
+        //console.log("questions are ", que)
         const response = await fetch("https://campus-olx.onrender.com/message/post", {
           method: "POST",
           mode:"cors",
@@ -145,7 +145,7 @@ function Message() {
           body:JSON.stringify( {conversationId: currentChat._id, sender: userId, text: que}),
         });
         const data = await response.json();
-        console.log( "response from post message",data);
+        //console.log( "response from post message",data);
         setMessages([...messages, data]);
         setQue(null);
         // navigate("/");

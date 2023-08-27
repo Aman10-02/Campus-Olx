@@ -15,9 +15,9 @@ function Details() {
   const navigate = useNavigate();
   const googleId = useSelector(selectUserGoogleId);
   const adDetail = useLocation().state;
-  console.log("google id:", googleId);
-  console.log("adDetail:", adDetail)
-  console.log("details page", adDetail)
+  //console.log("google id:", googleId);
+  //console.log("adDetail:", adDetail)
+  //console.log("details page", adDetail)
   const [des, setDes] = useState(adDetail.description);
   const [file, setFile] = useState(null);
   const [prog, setProg] = useState(null)
@@ -46,13 +46,13 @@ function Details() {
           // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
           const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           setProg("uploading...");
-          console.log('Upload is ' + progress + '% done');
+          //console.log('Upload is ' + progress + '% done');
           switch (snapshot.state) {
             case 'paused':
-              console.log('Upload is paused');
+              //console.log('Upload is paused');
               break;
             case 'running':
-              console.log('Upload is running');
+              //console.log('Upload is running');
               break;
             default:
           }
@@ -64,10 +64,10 @@ function Details() {
           // Handle successful uploads on complete
           // For instance, get the download URL: http://firebasestorage.googleapis.com/...
           const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-          console.log('File available at', downloadURL);
+          //console.log('File available at', downloadURL);
           // const item = { ...inputs, image: downloadURL }; 
           // alert(JSON.stringify(item))
-          // console.log("inputs are ", item)
+          // //console.log("inputs are ", item)
           const response = await fetch("https://campus-olx.onrender.com/update/image", {
             method: "POST",
             mode: "cors",
@@ -80,7 +80,7 @@ function Details() {
             body: JSON.stringify({ id: adDetail._id, image: downloadURL }),
           });
           const data = await response.json();
-          console.log(data)
+          //console.log(data)
           navigate("/my-ads");
         }
       );
@@ -91,7 +91,7 @@ function Details() {
   }
   const submitDes = async (event) => {
     event.preventDefault();
-    console.log("des", des)
+    //console.log("des", des)
     if(des){
 
       const response = await fetch("https://campus-olx.onrender.com/update/des", {
@@ -107,7 +107,7 @@ function Details() {
       body: JSON.stringify({ des: des, id: adDetail._id }),
       });
       const data = await response.json();
-      console.log(data)
+      //console.log(data)
       navigate("/my-ads");
     }
     else{

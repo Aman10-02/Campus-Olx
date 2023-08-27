@@ -12,7 +12,7 @@ function Others() {
     const [soldAds, setSoldAds] = useState(null);
     const navigate = useNavigate();
     const isAdmin = useSelector(selectUserAdmin);
-    console.log("others page", seller)
+    //console.log("others page", seller)
     useEffect(() => {
         const getsellerAds = async () => {
             const response = await fetch("https://campus-olx.onrender.com/adds/seller", {
@@ -28,7 +28,7 @@ function Others() {
                 body: JSON.stringify(seller),
             })
             const data = await response.json();
-            console.log("from getsellerAdds", data);
+            //console.log("from getsellerAdds", data);
             setSellerAds(data.sellerAdds);
             setSoldAds(data.soldadds);
         }
@@ -51,7 +51,7 @@ function Others() {
             body: seller.googleId,
         })
         const data = await response.json();
-        console.log("from fav func",data.message)
+        //console.log("from fav func",data.message)
         // dispatch(setUserLogin({
         //     googleId: data.updatedUser.googleId,
         //     name: data.updatedUser.username,

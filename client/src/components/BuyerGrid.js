@@ -6,7 +6,7 @@ import InfoCardBuyer from './InfoCardBuyer'
 
 function BuyerGrid({add}) {
     const buyers = add.interestedBuyer;  
-    console.log("buyergrid",buyers)
+    //console.log("buyergrid",buyers)
 
   return (
     <GridContainer>

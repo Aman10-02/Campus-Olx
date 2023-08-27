@@ -10,8 +10,8 @@ function Ads(props) {
     const dispatch = useDispatch();
     const username = useSelector(selectUserName);
     const isAdmin = useSelector(selectUserAdmin);
-    console.log("ads page cookie", process.env.REACT_APP_ADMIN_ID)
-    // console.log("ads page fav", favourite)
+    //console.log("ads page cookie", process.env.REACT_APP_ADMIN_ID)
+    // //console.log("ads page fav", favourite)
     const setfav = async () => {
         const response = await fetch("https://campus-olx.onrender.com/adds/favourite", {
             method: "POST",
@@ -26,7 +26,7 @@ function Ads(props) {
             body: props.adDetail._id,
         })
         const data = await response.json();
-        console.log("from fav func", data.updatedUser)
+        //console.log("from fav func", data.updatedUser)
         dispatch(setUserLogin({
             googleId: data.updatedUser.googleId,
             name: data.updatedUser.username,
@@ -35,8 +35,8 @@ function Ads(props) {
             favourite: data.updatedUser.favourite,
         }))
 
-        // // console.log("favourite after dispatch",favourite)
-        // console.log("Adspage:", JSON.stringify(props.adDetail));
+        // // //console.log("favourite after dispatch",favourite)
+        // //console.log("Adspage:", JSON.stringify(props.adDetail));
         // ? (setFav("solid")) : (setFav("regular")) 
         // )
         // window.location.reload();
@@ -57,7 +57,7 @@ function Ads(props) {
             body: props.adDetail._id,
         })
         const data = await response.json();
-        console.log("from fav func", data.message)
+        //console.log("from fav func", data.message)
         // dispatch(setUserLogin({
         //     googleId: data.updatedUser.googleId,
         //     name: data.updatedUser.username,
@@ -67,7 +67,7 @@ function Ads(props) {
         window.location.reload();
     }
     // else{
-    //     console.log("nofav")
+    //     //console.log("nofav")
     // }
     return (
         <Item>

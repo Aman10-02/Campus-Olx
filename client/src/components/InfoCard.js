@@ -12,7 +12,7 @@ function InfoCard({ add }) {
   const username = useSelector(selectUserName);
   const userId = useSelector(selectUserGoogleId);
   const navigate = useNavigate();
-  console.log("add", add)
+  //console.log("add", add)
 
   const profileClick = ()=>{
     username ? 
@@ -33,7 +33,7 @@ function InfoCard({ add }) {
         body: add.createdbygoogleId,
       })
       const data = await response.json();
-      console.log("from useeffect getdetail", data)
+      //console.log("from useeffect getdetail", data)
       setSeller(data.user);
     };
     getSeller();
@@ -53,7 +53,7 @@ function InfoCard({ add }) {
         body: JSON.stringify({senderId: userId, receiverId: seller.googleId, addId: add._id}),
       })
       const data = await response.json();
-      console.log("from useeffect create", data);
+      //console.log("from useeffect create", data);
       navigate("/message", {state:data});
 
       // setSeller(data.seller);

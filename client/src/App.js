@@ -28,9 +28,9 @@ function App() {
   const [user, setUser] = useState(null);
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log("effect used")
+    //console.log("effect used")
     const getUser = () => {
-      console.log("inside get user func")
+      //console.log("inside get user func")
       fetch("https://campus-olx.onrender.com/auth/login/success", {
         method: "GET",
         credentials: "include",
@@ -41,15 +41,15 @@ function App() {
         },
       })
         .then((response) => {
-          console.log("got first response",response)
+          //console.log("got first response",response)
           if (response.status === 200) return response.json();
           throw new Error("authentication has been failed!");
         }).catch((err) => {
-          console.log(err);
+          //console.log(err);
           dispatch(setSignOut());
         })
         .then((resObject) => {
-          console.log("login response",resObject)
+          //console.log("login response",resObject)
           setUser(resObject.user);
           dispatch(setUserLogin({
             googleId: resObject.user.googleId,
@@ -60,7 +60,7 @@ function App() {
           }))
         })
         .catch((err) => {
-          console.log(err);
+          //console.log(err);
           dispatch(setSignOut());
         });
     };
@@ -68,7 +68,7 @@ function App() {
   }, []
   );
 
-  console.log("after effect", user);
+  //console.log("after effect", user);
 
 
   return (

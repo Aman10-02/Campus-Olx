@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Ads from './Ads'
 
 function Gridcontainer(props) {
-    console.log( "gridcontainer :", props.adsToPublish)
+    //console.log( "gridcontainer :", props.adsToPublish)
   return (
     <GridContainer>
         <Items >

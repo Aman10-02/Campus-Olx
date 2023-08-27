@@ -4,9 +4,9 @@ const Message = require("../models/Message.module");
 //add
 
 router.post("/post", async (req, res) => {
-  console.log("new msg", req.body)
+  //console.log("new msg", req.body)
   const newMessage = new Message(req.body);
-  console.log("new message created:", newMessage)
+  //console.log("new message created:", newMessage)
   try {
     const savedMessage = await newMessage.save();
     res.status(200).json(savedMessage);
@@ -18,7 +18,7 @@ router.post("/post", async (req, res) => {
 //get
 
 router.post("/get", async (req, res) => {
-  console.log("messages get", JSON.parse(req.body))
+  //console.log("messages get", JSON.parse(req.body))
   try {
     const messages = await Message.find({
       conversationId: JSON.parse(req.body).conversationId,

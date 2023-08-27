@@ -10,11 +10,11 @@ function Conversations({ conv }) {
     const [addConv, setAddConv] = useState(null);
     const [userConv, setUserConv] = useState(null);
     const otherUser = userId ? conv.members.find((member) => member != userId ) : null;
-    // console.log("otherUser", otherUser)
+    // //console.log("otherUser", otherUser)
     // const dispatch = useDispatch();
     // const activeAdd = useSelector(selectAdd);
     // const activeFriend = useSelector(selectFriendUser);
-    // console.log(activeAdd)
+    // //console.log(activeAdd)
     useEffect(() => {
         const getDetails = async () => {
             const response = await fetch("https://campus-olx.onrender.com/adds/conv", {
@@ -31,7 +31,7 @@ function Conversations({ conv }) {
 
             })
             const data = await response.json();
-            console.log("from useeffect conver getdetail", data);
+            //console.log("from useeffect conver getdetail", data);
             setAddConv(data.Add);
             setUserConv(data.User);
         };

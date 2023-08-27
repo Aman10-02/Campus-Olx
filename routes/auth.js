@@ -3,7 +3,7 @@ const passport = require('passport')
 
 router.get('/login/success', (req, res) => {
     if (req.user) {
-        console.log("request for details")
+        //console.log("request for details")
         res.status(200).json({
             success: true,
             message: "successfull",
@@ -12,7 +12,7 @@ router.get('/login/success', (req, res) => {
         });
     }
     else {
-        console.log("user logged out")
+        //console.log("user logged out")
     }
 
 });
