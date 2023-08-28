@@ -3,12 +3,13 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { selectUserFavourite, selectUserName, selectUserAdmin, setUserLogin } from '../features/user/userSlice';
+import { selectUserFavourite, selectUserName, selectUserAdmin, setUserLogin, selectSocket } from '../features/user/userSlice';
 
 function Ads(props) {
     const favourite = useSelector(selectUserFavourite);
     const dispatch = useDispatch();
     const username = useSelector(selectUserName);
+    const socket = useSelector(selectSocket);
     const isAdmin = useSelector(selectUserAdmin);
     //console.log("ads page cookie", process.env.REACT_APP_ADMIN_ID)
     // //console.log("ads page fav", favourite)
@@ -28,6 +29,7 @@ function Ads(props) {
         const data = await response.json();
         //console.log("from fav func", data.updatedUser)
         dispatch(setUserLogin({
+            socket: socket,
             googleId: data.updatedUser.googleId,
             name: data.updatedUser.username,
             photo: data.updatedUser.image,

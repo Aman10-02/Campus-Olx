@@ -1,4 +1,4 @@
-let myuser
+let connectedUser = {};
 require('dotenv').config();
 // //console.log(process.env)
 const express = require("express");
@@ -15,8 +15,17 @@ const cookieSession = require('cookie-session');
 const passport = require('passport')
 const cors = require("cors");
 const path = require("path")
-
+const socketIo = require("socket.io");
+const http = require("http"); 
 const app = express();
+const server = http.createServer(app);
+const io = socketIo(server, {
+  cors: {
+    origin: 'http://localhost:3000', // Replace with your frontend URL
+    methods: ['GET', 'POST'],
+    credentials: true,
+  },
+});
 app.use(express.json());
 app.use(express.text())
 // set up session cookies
@@ -43,6 +52,34 @@ app.use(
 // },
 // e => console.error(e)
 // )
+
+io.on("connection", (socket) => {
+  console.log("A user connected");
+  socket.on("logIn", (user) => {
+    console.log("A user loggedIN", user.userid);
+    connectedUser[user.userid] = socket.id;
+    // console.log("Received message:", message);
+  });
+  socket.on("newMessage", (user) => {
+    console.log("Received message:", user.receiver);
+    if(connectedUser.hasOwnProperty(user.receiver)){
+      const socketid = connectedUser[user.receiver];
+      io.to(socketid).emit("gotMessage");
+    }
+  });
+
+  socket.on("disconnect", () => {
+    console.log("A user disconnected");
+    for (const key in connectedUser) {
+      if (connectedUser[key] === socket.id) {
+        delete connectedUser[key];
+        console.log(`Deleted key: ${key}`);
+      }
+    }
+  });
+  console.log(JSON.stringify(connectedUser))
+});
+
 mongoose
   .connect(process.env.MONGODBCONNECT)
   .then(() => console.log("DB Connection Successfull!"))
@@ -70,6 +107,6 @@ app.get('*', (req, res) => {
 
 
 
-app.listen(process.env.PORT || 5000, () => {
+server.listen(process.env.PORT || 5000, () => {
     //console.log("server is running")
 })

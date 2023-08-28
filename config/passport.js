@@ -97,7 +97,7 @@ passport.use(
 //         clientID: keys.outlook.clientID,
 //         clientSecret: keys.outlook.clientSECRET,
 //         // tenantID: '850aa78d-94e1-4bc6-9cf3-8c11b530701c',
-//         callbackURL: "http://localhost:5000/auth/outlook/callback",
+//         callbackURL: "https://campus-olx.onrender.com/auth/outlook/callback",
 //         scope: ['User.Read'],
 //         tenant: '850aa78d-94e1-4bc6-9cf3-8c11b530701c',
 //     }, (accessToken, refreshToken, profile, done) => {

@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 // import { Link } from 'react-router-dom'
 import { useSelector, useDispatch} from 'react-redux';
-import { selectUserFavourite, selectUserGoogleId, selectUserName, setUserLogin} from '../features/user/userSlice';
+import { selectSocket, selectUserFavourite, selectUserGoogleId, selectUserName, setUserLogin} from '../features/user/userSlice';
 import Popup from 'reactjs-popup';
 import { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
@@ -13,6 +13,7 @@ function PriceCard(props) {
     const dispatch = useDispatch();
     const username = useSelector(selectUserName);
     const googleId = useSelector(selectUserGoogleId);
+    const socket = useSelector(selectSocket);
     const navigate = useNavigate();
     const isposition = useMediaQuery({ query: `(max-width: 611px)` });
     const [price, setPrice] = useState(props.adDetail.price)
@@ -58,6 +59,7 @@ function PriceCard(props) {
         const data = await response.json();
         //console.log("from fav func",data.updatedUser)
         dispatch(setUserLogin({
+            socket: socket,
             googleId: data.updatedUser.googleId,
             name: data.updatedUser.username,
             photo: data.updatedUser.image,

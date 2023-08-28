@@ -2,13 +2,14 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
-import { selectUserGoogleId } from '../features/user/userSlice';
+import { selectSocket, selectUserGoogleId } from '../features/user/userSlice';
 import Conversations from './Conversations'
 import MsgChats from './MsgChats';
 
 function Message() {
     const location = useLocation().state;
     const userId = useSelector(selectUserGoogleId);
+    const socket = useSelector(selectSocket);
     const [conversations, setConversations] = useState(null);
     const [currentChat, setCurrentChat] = useState(null); 
     const [currentAdd, setCurrentAdd] = useState(null); 
@@ -50,8 +51,7 @@ function Message() {
       getConversation();
     }, [currentChat])
 
-    useEffect(() => {
-      const getMessages = async () => {
+    const getMessages = async () => {
         const response = await fetch("https://campus-olx.onrender.com/message/get", {
         method: "POST",
         mode: "cors",
@@ -68,6 +68,11 @@ function Message() {
       //console.log("from useeffect getMessages", data);
       setMessages(data);
       };
+    socket.on( 'gotMessage', async () => {
+       await getMessages();
+    })
+    useEffect(() => {
+      
       getMessages();
     }, [currentChat])
 
@@ -97,10 +102,33 @@ function Message() {
     const handleChange = (e) => {
         setMsg(e.target.value)
     }
+    const sendOfferMsg = async (msg) => {
+        // alert(JSON.stringify(msg))
+        //console.log("questions are ", que)
+        if(msg){
+            const response = await fetch("https://campus-olx.onrender.com/message/post", {
+                method: "POST",
+                mode:"cors",
+                credentials: "include",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Credentials": true,
+            },
+            body:JSON.stringify( {conversationId: currentChat._id, sender: userId, text: msg}),
+            });
+            const data = await response.json();
+            //console.log( "response from post message",data);
+            socket.emit('newMessage',{
+                receiver: friendUser
+            });
+            setMessages([...messages, data]);
+            setQue(null);
+        }
+        // navigate("/");
+    }
     const sendmsg = async (event) => {
         event.preventDefault();
-        // alert(JSON.stringify(msg))
-        //console.log("inputs are ", msg);
         if(msg)
         {const response = await fetch("https://campus-olx.onrender.com/adds/post/offer", {
           method: "POST",
@@ -115,6 +143,7 @@ function Message() {
         });
         const data = await response.json();
         //console.log(data);
+        sendOfferMsg(`Made offer for ₹ ${msg}`)
         alert("Your offer of ₹ "+ msg + " is made sucessfully")
         setMsg(null);
         }
@@ -130,24 +159,29 @@ function Message() {
         setQue(e.target.value)
     }
     const sendQ = async (event) => {
-        event.preventDefault();
+        event?.preventDefault();
         // alert(JSON.stringify(msg))
         //console.log("questions are ", que)
-        const response = await fetch("https://campus-olx.onrender.com/message/post", {
-          method: "POST",
-          mode:"cors",
-          credentials: "include",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Credentials": true,
-          },
-          body:JSON.stringify( {conversationId: currentChat._id, sender: userId, text: que}),
-        });
-        const data = await response.json();
-        //console.log( "response from post message",data);
-        setMessages([...messages, data]);
-        setQue(null);
+        if(que){
+            const response = await fetch("https://campus-olx.onrender.com/message/post", {
+                method: "POST",
+                mode:"cors",
+                credentials: "include",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Credentials": true,
+            },
+            body:JSON.stringify( {conversationId: currentChat._id, sender: userId, text: que}),
+            });
+            const data = await response.json();
+            //console.log( "response from post message",data);
+            socket.emit('newMessage',{
+                receiver: friendUser
+            });
+            setMessages([...messages, data]);
+            setQue(null);
+        }
         // navigate("/");
     }
 

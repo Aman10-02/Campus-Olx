@@ -1,4 +1,5 @@
 import React from 'react';
+import io from 'socket.io-client';
 import './App.css';
 import Allpages from './pagePlan/Allpages';
 import Sellpages from './pagePlan/Sellpages';
@@ -27,6 +28,7 @@ import Login from './components/Login';
 function App() {
   const [user, setUser] = useState(null);
   const dispatch = useDispatch();
+  const socket = io('http://localhost:5000');
   useEffect(() => {
     //console.log("effect used")
     const getUser = () => {
@@ -51,7 +53,9 @@ function App() {
         .then((resObject) => {
           //console.log("login response",resObject)
           setUser(resObject.user);
+          socket.emit('logIn', {userid : resObject.user.googleId})
           dispatch(setUserLogin({
+            socket: socket,
             googleId: resObject.user.googleId,
             name: resObject.user.username,
             photo: resObject.user.image,
