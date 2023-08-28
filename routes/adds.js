@@ -224,7 +224,13 @@ router.post('/post/offer', async (req, res) => {
             const searchId = req.body;
             //console.log("/search",req.body);
             const regex = new RegExp(searchId, 'i');
-            const requiredAdds = await Add.find( { category : regex, sold: false } );
+            const requiredAdds = await Add.find( { 
+            $or: [
+                { category: regex },
+                { title: regex }
+              ],
+               sold: false 
+            } );
             //console.log("required ads search", requiredAdds)
             
             requiredAdds.length !== 0 ?

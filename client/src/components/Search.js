@@ -10,7 +10,8 @@ function Search() {
   const [searchedAds, setSearchedAds] = useState([]);
   const input = useLocation().state;
   //console.log(input + "whvje")
-  const search = (input) && (input.charAt(0).toUpperCase() + input.slice(1).toLowerCase());
+  const search = (input) ;
+  // && (input.charAt(0).toUpperCase() + input.slice(1).toLowerCase());
 
   const [min, setMin] = useState(0);
   const [max, setMax] = useState(Infinity);
