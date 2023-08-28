@@ -9,6 +9,7 @@ import { useMediaQuery } from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
 
 function PriceCard(props) {
+    const api = process.env.REACT_APP_API;
     const favourite = useSelector(selectUserFavourite);
     const dispatch = useDispatch();
     const username = useSelector(selectUserName);
@@ -21,7 +22,7 @@ function PriceCard(props) {
     const handlesubmit = async (e) => {
       e.preventDefault();
       if(title && price){
-        const response = await fetch("https://campus-olx.onrender.com/update/price", {
+        const response = await fetch(api + "update/price", {
           method: "POST",
           mode:"cors",
           credentials: "include",
@@ -44,7 +45,7 @@ function PriceCard(props) {
     // //console.log("ads page",username)
     // //console.log("ads page fav", favourite)
     const setfav = async () => {
-        const response = await fetch("https://campus-olx.onrender.com/adds/favourite", {
+        const response = await fetch(api + "adds/favourite", {
             method: "POST",
             mode: "cors",
             credentials: "include",

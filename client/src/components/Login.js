@@ -2,13 +2,13 @@ import React from 'react'
 import styled from 'styled-components'
 
 function Login() {
-
+    const api = process.env.REACT_APP_API;
 
     const google = () => {
-        window.open("https://campus-olx.onrender.com/auth/google", "_self");
+        window.open(api + "auth/google", "_self");
     };
     const outlook = () => {
-        window.open("https://campus-olx.onrender.com/auth/outlook", "_self");
+        window.open(api + "auth/outlook", "_self");
     };
 
   return (

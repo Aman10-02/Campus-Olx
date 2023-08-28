@@ -6,6 +6,7 @@ import Ads from './Ads'
 
 
 function Search() {
+  const api = process.env.REACT_APP_API;
   const [isSearch, setIsSearch] = useState(true)
   const [searchedAds, setSearchedAds] = useState([]);
   const input = useLocation().state;
@@ -34,7 +35,7 @@ function Search() {
   }
   useEffect(() => {
     const getsearchedAds = async () => {
-      const response = await fetch("https://campus-olx.onrender.com/adds/search", {
+      const response = await fetch(api + "adds/search", {
         method: "POST",
         mode: "cors",
         credentials: "include",

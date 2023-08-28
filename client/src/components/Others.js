@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 import { selectUserAdmin } from '../features/user/userSlice';
 
 function Others() {
-
+    const api = process.env.REACT_APP_API;
     const seller = useLocation().state;
     const [sellerAds, setSellerAds] = useState(null);
     const [soldAds, setSoldAds] = useState(null);
@@ -15,7 +15,7 @@ function Others() {
     //console.log("others page", seller)
     useEffect(() => {
         const getsellerAds = async () => {
-            const response = await fetch("https://campus-olx.onrender.com/adds/seller", {
+            const response = await fetch(api + "adds/seller", {
                 method: "POST",
                 mode: "cors",
                 credentials: "include",
@@ -38,7 +38,7 @@ function Others() {
 
     const deleteAdd = async() => {
         alert("user deleted")
-        const response = await fetch("https://campus-olx.onrender.com/user/delete", {
+        const response = await fetch(api + "user/delete", {
             method: "POST",
             mode: "cors",
             credentials: "include",

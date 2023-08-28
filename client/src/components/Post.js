@@ -8,6 +8,7 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/
 import app from '../firebase'
 
 function Post() {
+    const api = process.env.REACT_APP_API;
     const navigate = useNavigate()
     const selected = useLocation().state;
 
@@ -59,7 +60,7 @@ function Post() {
                     const item = { ...inputs, image: downloadURL }; 
                     alert(JSON.stringify(item))
                     //console.log("inputs are ", item)
-                    const response = await fetch("https://campus-olx.onrender.com/adds/post", {
+                    const response = await fetch(api + "adds/post", {
                       method: "POST",
                       mode:"cors",
                       credentials: "include",

@@ -7,13 +7,14 @@ import { selectUserGoogleId } from '../features/user/userSlice';
 
 
 function InfoCardBuyer({buyer, add}) {
+  const api = process.env.REACT_APP_API;
   const navigate = useNavigate();
   const userId = useSelector(selectUserGoogleId); 
   const [buyerDetail, setBuyerDetail] = useState(null);
   //console.log("info card buyer",add)
   useEffect(() => {
     const getBuyer = async () => {
-      const response = await fetch("https://campus-olx.onrender.com/user/getdetail", {
+      const response = await fetch(api + "user/getdetail", {
         method: "POST",
         mode: "cors",
         credentials: "include",
@@ -33,7 +34,7 @@ function InfoCardBuyer({buyer, add}) {
   }, []);
 
   const CreateConversation = async () => {
-    const response = await fetch("https://campus-olx.onrender.com/conversation", {
+    const response = await fetch(api + "conversation", {
       method: "POST",
       mode: "cors",
       credentials: "include",
@@ -53,7 +54,7 @@ function InfoCardBuyer({buyer, add}) {
   }
 
   const Sold = async () => {
-    const response = await fetch("https://campus-olx.onrender.com/adds/sold", {
+    const response = await fetch(api + "adds/sold", {
       method: "POST",
       mode: "cors",
       credentials: "include",

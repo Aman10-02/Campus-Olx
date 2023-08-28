@@ -7,6 +7,7 @@ import Conversations from './Conversations'
 import MsgChats from './MsgChats';
 
 function Message() {
+    const api = process.env.REACT_APP_API;
     const location = useLocation().state;
     const userId = useSelector(selectUserGoogleId);
     const socket = useSelector(selectSocket);
@@ -33,7 +34,7 @@ function Message() {
     // //console.log("successful")
     useEffect(() => {
       const getConversation = async () => {
-        const response = await fetch("https://campus-olx.onrender.com/conversation/get", {
+        const response = await fetch(api + "conversation/get", {
         method: "GET",
         mode: "cors",
         credentials: "include",
@@ -52,7 +53,7 @@ function Message() {
     }, [currentChat])
 
     const getMessages = async () => {
-        const response = await fetch("https://campus-olx.onrender.com/message/get", {
+        const response = await fetch(api + "message/get", {
         method: "POST",
         mode: "cors",
         credentials: "include",
@@ -78,7 +79,7 @@ function Message() {
 
     useEffect(() => {
         const getDetails = async () => {
-            const response = await fetch("https://campus-olx.onrender.com/adds/conv/detail", {
+            const response = await fetch(api + "adds/conv/detail", {
                 method: "POST",
                 mode: "cors",
                 credentials: "include",
@@ -106,7 +107,7 @@ function Message() {
         // alert(JSON.stringify(msg))
         //console.log("questions are ", que)
         if(msg){
-            const response = await fetch("https://campus-olx.onrender.com/message/post", {
+            const response = await fetch(api + "message/post", {
                 method: "POST",
                 mode:"cors",
                 credentials: "include",
@@ -130,7 +131,7 @@ function Message() {
     const sendmsg = async (event) => {
         event.preventDefault();
         if(msg)
-        {const response = await fetch("https://campus-olx.onrender.com/adds/post/offer", {
+        {const response = await fetch(api + "adds/post/offer", {
           method: "POST",
           mode:"cors",
           credentials: "include",
@@ -163,7 +164,7 @@ function Message() {
         // alert(JSON.stringify(msg))
         //console.log("questions are ", que)
         if(que){
-            const response = await fetch("https://campus-olx.onrender.com/message/post", {
+            const response = await fetch(api + "message/post", {
                 method: "POST",
                 mode:"cors",
                 credentials: "include",

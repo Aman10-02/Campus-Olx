@@ -12,6 +12,7 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/
 import app from '../firebase'
 
 function Details() {
+  const api = process.env.REACT_APP_API;
   const navigate = useNavigate();
   const googleId = useSelector(selectUserGoogleId);
   const adDetail = useLocation().state;
@@ -68,7 +69,7 @@ function Details() {
           // const item = { ...inputs, image: downloadURL }; 
           // alert(JSON.stringify(item))
           // //console.log("inputs are ", item)
-          const response = await fetch("https://campus-olx.onrender.com/update/image", {
+          const response = await fetch( api + "update/image", {
             method: "POST",
             mode: "cors",
             credentials: "include",
@@ -94,7 +95,7 @@ function Details() {
     //console.log("des", des)
     if(des){
 
-      const response = await fetch("https://campus-olx.onrender.com/update/des", {
+      const response = await fetch(api + "update/des", {
         method: "POST",
         mode: "cors",
         credentials: "include",

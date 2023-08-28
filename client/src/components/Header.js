@@ -13,6 +13,7 @@ import Popup from 'reactjs-popup';
 
 
 function Header() {
+    const api = process.env.REACT_APP_API;
     const userimage = useSelector(selectUserPhoto);
     const username = useSelector(selectUserName);
     const navigate = useNavigate();
@@ -20,7 +21,7 @@ function Header() {
     const isMenu = useMediaQuery({ query: `(min-width: 769px)` });
     const [input, setInput] = useState("")
     const logout = () => {
-        window.open("https://campus-olx.onrender.com/auth/logout", "_self");
+        window.open( api + "auth/logout", "_self");
     };
     function sellbtn() {
         userimage ? (navigate("/sell")) : (alert("Login Required"))
@@ -34,7 +35,7 @@ function Header() {
         setInput("")
     }
     const google = () => {
-        window.open("https://campus-olx.onrender.com/auth/google", "_self");
+        window.open(api + "auth/google", "_self");
     };
     return (
         <Container>

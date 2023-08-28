@@ -11,9 +11,10 @@ function Recommend() {
 
     useEffect(() => {
         //console.log("effect used")
+        const api = process.env.REACT_APP_API;
         const getAds = () => {
             //console.log("inside get ads func")
-            fetch("https://campus-olx.onrender.com/adds/get/recommend", {
+            fetch(api + "adds/get/recommend", {
                 method: "GET",
                 credentials: "include",
                 headers: {

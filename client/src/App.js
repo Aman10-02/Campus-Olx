@@ -26,14 +26,15 @@ import { ActiveChatProvider } from './activeChatContext';
 import Login from './components/Login';
 
 function App() {
+  const api = process.env.REACT_APP_API;
   const [user, setUser] = useState(null);
   const dispatch = useDispatch();
-  const socket = io('http://localhost:5000');
+  const socket = io(api);
   useEffect(() => {
     //console.log("effect used")
     const getUser = () => {
       //console.log("inside get user func")
-      fetch("https://campus-olx.onrender.com/auth/login/success", {
+      fetch( api +  "auth/login/success", {
         method: "GET",
         credentials: "include",
         headers: {

@@ -6,6 +6,7 @@ import { selectUserGoogleId } from '../features/user/userSlice'
 
 function Conversations({ conv }) {
     const userId = useSelector(selectUserGoogleId);
+    const api = process.env.REACT_APP_API;
     //    (conv.members[0] === userId) ? conv.members[1] : conv.members[0];
     const [addConv, setAddConv] = useState(null);
     const [userConv, setUserConv] = useState(null);
@@ -17,7 +18,7 @@ function Conversations({ conv }) {
     // //console.log(activeAdd)
     useEffect(() => {
         const getDetails = async () => {
-            const response = await fetch("https://campus-olx.onrender.com/adds/conv", {
+            const response = await fetch( api + "adds/conv", {
                 method: "POST",
                 mode: "cors",
                 credentials: "include",

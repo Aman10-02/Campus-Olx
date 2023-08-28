@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import { selectUserFavourite, selectUserName, selectUserAdmin, setUserLogin, selectSocket } from '../features/user/userSlice';
 
 function Ads(props) {
+    const api = process.env.REACT_APP_API;
     const favourite = useSelector(selectUserFavourite);
     const dispatch = useDispatch();
     const username = useSelector(selectUserName);
@@ -14,7 +15,7 @@ function Ads(props) {
     //console.log("ads page cookie", process.env.REACT_APP_ADMIN_ID)
     // //console.log("ads page fav", favourite)
     const setfav = async () => {
-        const response = await fetch("https://campus-olx.onrender.com/adds/favourite", {
+        const response = await fetch(api + "adds/favourite", {
             method: "POST",
             mode: "cors",
             credentials: "include",
@@ -46,7 +47,7 @@ function Ads(props) {
 
     const deleteAdd = async () => {
         alert("add deleted")
-        const response = await fetch("https://campus-olx.onrender.com/adds/delete", {
+        const response = await fetch(api + "adds/delete", {
             method: "POST",
             mode: "cors",
             credentials: "include",

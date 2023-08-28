@@ -21,7 +21,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: 'http://localhost:3000', // Replace with your frontend URL
+    origin: "https://campus-olx.onrender.com/", // Replace with your frontend URL
     methods: ['GET', 'POST'],
     credentials: true,
   },
@@ -40,7 +40,7 @@ app.use(passport.session());
 
 app.use(
     cors({
-      origin: "http://localhost:3000",
+      origin: "https://campus-olx.onrender.com/",
       methods: "GET,POST,PUT,DELETE",
       credentials: true,
     })
